@@ -37,13 +37,7 @@ namespace DisKloud.Server.Controllers
         public async Task<IActionResult> Post(IFormFile file ,string path, Guid UserID)
         {
             FileData data;
-            /*IQueryable<FileData> Bddata = _dbContext.FileData.Where(f => f.Name == file.Name && f.path == path);
-            if (Bddata.Count() > 0)
-            {
-                data = Bddata.First();
-            }
-            else
-            {*/
+            
 
 
             Users? fileOwner = _dbContext.Users.Find(UserID) ;
