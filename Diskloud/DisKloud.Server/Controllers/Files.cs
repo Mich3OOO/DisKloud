@@ -82,7 +82,7 @@ namespace DisKloud.Server.Controllers
         public async Task<IActionResult> Put(Guid FileId, IFormFile file, string path)
         {
             
-            FileData localdata = _dbContext.FileData.Find(FileId);
+            FileData? localdata = _dbContext.FileData.Find(FileId);
             if (localdata == null) return NotFound();
 
 
