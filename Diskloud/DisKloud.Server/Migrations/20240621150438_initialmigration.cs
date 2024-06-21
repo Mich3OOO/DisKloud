@@ -29,7 +29,7 @@ namespace DisKloud.Server.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    VersionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    VersionDate = table.Column<string>(type: "text", nullable: false),
                     path = table.Column<string>(type: "text", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
                     ContentType = table.Column<string>(type: "text", nullable: false)

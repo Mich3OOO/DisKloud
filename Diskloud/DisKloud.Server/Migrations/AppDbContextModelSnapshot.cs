@@ -39,8 +39,9 @@ namespace DisKloud.Server.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("VersionDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("VersionDate")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("path")
                         .IsRequired()

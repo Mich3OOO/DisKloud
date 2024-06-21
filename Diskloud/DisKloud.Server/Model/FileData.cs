@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public DateTime VersionDate { get; set; }
+        public string VersionDate { get; set; }
         public string path {  get; set; }
 
         public Users Owner { get; set; }
@@ -20,12 +20,28 @@
         {
             Id = Guid.NewGuid();
             Name = file.FileName;
-            VersionDate = DateTime.UtcNow;
+            VersionDate = file.Headers.LastModified;
+
+            if (VersionDate == null) VersionDate = DateTime.Now.ToString();
+
             path = filePath;
             Owner =user;
             ContentType = file.ContentType;
         }
 
+        public void update(IFormFile file, string filePath)
+        {
+            
+            Name = file.FileName;
+            VersionDate = file.Headers.LastModified;
+
+            if (VersionDate == null) VersionDate = DateTime.Now.ToString();
+
+            path = filePath;
+            ContentType = file.ContentType;
+
+
+        }
     }
 
 }

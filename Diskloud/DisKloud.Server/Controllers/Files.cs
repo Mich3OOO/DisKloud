@@ -65,7 +65,7 @@ namespace DisKloud.Server.Controllers
             _dbContext.FileData.Add(data);
 
             FileStream newfile = System.IO.File.Create(FilesPath + data.Id.ToString());
-            file.CopyTo(newfile);
+            await file.CopyToAsync(newfile);
             newfile.Close();
 
 
@@ -78,9 +78,30 @@ namespace DisKloud.Server.Controllers
 
         
         // PUT api/<Files>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put(Guid FileId, IFormFile file, string path)
         {
+            
+            FileData localdata = _dbContext.FileData.Find(FileId);
+            if (localdata == null) return NotFound();
+
+
+
+            FileStream localfile =  System.IO.File.OpenWrite(FilesPath + FileId.ToString());
+
+            
+
+            await file.CopyToAsync(localfile);
+
+            localfile.Dispose();
+            localfile.Close();
+
+            localdata.update(file, path);
+
+            _dbContext.Update(localdata);
+            _dbContext.SaveChanges();
+            return Ok();
+
         }
 
         // DELETE api/<Files>/5
