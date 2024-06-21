@@ -19,17 +19,17 @@ namespace DisKloud.Server.Controllers
         }
 
         // GET: api/<Files>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{FileId}")]
+        public IActionResult GetbyId(Guid FileId)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_dbContext.FileData.Find(FileId));
         }
 
         // GET api/<Files>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("byUser/{UserId}")]
+        public IActionResult GetbyOwner(Guid UserId)
         {
-            return "value";
+            return Ok(_dbContext.FileData.Where(f=>f.Owner.Id == UserId));
         }
 
         // POST api/<Files>
