@@ -40,10 +40,5 @@ namespace DisKloud.Client
             return dates;
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DateTime[] test = get_date();
-            Console.WriteLine(test);
-        }
     }
 }
