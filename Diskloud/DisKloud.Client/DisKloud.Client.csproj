@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="pngwing.com.png" />
+    <None Remove="Sans titre 1_20240621175033.png" />
+    <None Remove="[CITYPNG.COM]Blue Glossy Web Button FREE PNG - 4000x4000.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pngwing.com.png" />
+    <Resource Include="Sans titre 1_20240621175033.png" />
+    <Resource Include="[CITYPNG.COM]Blue Glossy Web Button FREE PNG - 4000x4000.png" />
+  </ItemGroup>
+
 </Project>
