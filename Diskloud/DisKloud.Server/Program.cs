@@ -1,8 +1,14 @@
+using DisKloud.Server.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//bd Services
+builder.Services.AddDbContext<AppDbContext>();
 
 //use swagger
 //builder.Services.AddEndpointsApiExplorer();
@@ -15,6 +21,10 @@ var app = builder.Build();
 //app.UseHttpsRedirection();
 
 //use swagger
+
+
+
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

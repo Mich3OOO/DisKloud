@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DisKloud.Server.Contexts;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.IO.Pipes;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,6 +10,13 @@ namespace DisKloud.Server.Controllers
     [ApiController]
     public class Files : ControllerBase
     {
+        public AppDbContext test;
+
+        public Files(AppDbContext a)
+        {
+            test = a;
+        }
+
         // GET: api/<Files>
         [HttpGet]
         public IEnumerable<string> Get()
