@@ -30,5 +30,6 @@
         </Button>
         <TextBox x:Name="Server_address" HorizontalAlignment="Left" Height="25" Margin="241,235,0,0" TextWrapping="Wrap" Text="Server Address" VerticalAlignment="Top" Width="159"/>
         <ListBox x:Name="Server_address_list_box" HorizontalAlignment="Left" Height="25" Margin="400,235,0,0" VerticalAlignment="Top" Width="159" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Button Content="test&#xD;&#xA;" HorizontalAlignment="Left" Height="44" Margin="675,25,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click"/>
     </Grid>
 </Window>
