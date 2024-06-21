@@ -105,9 +105,17 @@ namespace DisKloud.Server.Controllers
         }
 
         // DELETE api/<Files>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete(Guid FileId)
         {
+            FileData localdata = _dbContext.FileData.Find(FileId);
+            if (localdata == null) return NotFound();
+
+            System.IO.File.Delete(FilesPath + FileId.ToString());
+
+            _dbContext.Remove(localdata);
+            _dbContext.SaveChanges();
+            return Ok();
         }
     }
 }
