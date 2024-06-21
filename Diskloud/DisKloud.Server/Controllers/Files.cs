@@ -1,5 +1,6 @@
 ﻿using DisKloud.Server.Contexts;
 using DisKloud.Server.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.IO.Pipes;
@@ -11,6 +12,8 @@ namespace DisKloud.Server.Controllers
     [ApiController]
     public class Files : ControllerBase
     {
+
+        private const string FilesPath = ".\\Files\\";
         private AppDbContext _dbContext;
 
         public Files(AppDbContext dbContext)
@@ -19,17 +22,31 @@ namespace DisKloud.Server.Controllers
         }
 
         // GET: api/<Files>
-        [HttpGet("{FileId}")]
+        [HttpGet("data/{FileId}")]
         public IActionResult GetbyId(Guid FileId)
         {
             return Ok(_dbContext.FileData.Find(FileId));
         }
 
-        // GET api/<Files>/5
-        [HttpGet("byUser/{UserId}")]
+
+        [HttpGet("data/User/{UserId}")]
         public IActionResult GetbyOwner(Guid UserId)
         {
             return Ok(_dbContext.FileData.Where(f=>f.Owner.Id == UserId));
+        }
+
+
+        [HttpGet("{FileId}")]
+        public IActionResult Get(Guid FileId)
+        {
+            FileData? filedata = _dbContext.FileData.Find(FileId);
+
+            if(filedata == null) return NotFound();
+
+            FileStream file = System.IO.File.Open(FilesPath + FileId.ToString(), FileMode.Open);
+
+
+            return File(file, filedata.ContentType, filedata.Name);
         }
 
         // POST api/<Files>
@@ -47,11 +64,9 @@ namespace DisKloud.Server.Controllers
             data = new FileData(file,path, fileOwner);
             _dbContext.FileData.Add(data);
 
-            FileStream newfile = System.IO.File.Create($".\\Files\\{data.Id}");
+            FileStream newfile = System.IO.File.Create(FilesPath + data.Id.ToString());
             file.CopyTo(newfile);
             newfile.Close();
-
-
 
 
 

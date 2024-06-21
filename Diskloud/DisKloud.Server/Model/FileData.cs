@@ -10,6 +10,8 @@
 
         public Users Owner { get; set; }
 
+        public string ContentType { get; set; }
+
         public FileData()
         {
 
@@ -21,6 +23,7 @@
             VersionDate = DateTime.UtcNow;
             path = filePath;
             Owner =user;
+            ContentType = file.ContentType;
         }
 
     }
