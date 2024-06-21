@@ -1,13 +1,18 @@
 using DisKloud.Server.Contexts;
 using Microsoft.EntityFrameworkCore;
 
+
+
+
+System.IO.Directory.CreateDirectory(".\\Files");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 
-//bd Services
+//bd Context
 builder.Services.AddDbContext<AppDbContext>();
 
 //use swagger

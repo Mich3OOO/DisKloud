@@ -9,5 +9,20 @@
         public string path {  get; set; }
 
         public Users Owner { get; set; }
+
+        public FileData()
+        {
+
+        }
+        public FileData(IFormFile file,string filePath, Users user)
+        {
+            Id = Guid.NewGuid();
+            Name = file.FileName;
+            VersionDate = DateTime.UtcNow;
+            path = filePath;
+            Owner =user;
+        }
+
     }
+
 }

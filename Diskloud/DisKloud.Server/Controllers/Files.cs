@@ -1,4 +1,5 @@
 ﻿using DisKloud.Server.Contexts;
+using DisKloud.Server.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.IO.Pipes;
@@ -10,11 +11,11 @@ namespace DisKloud.Server.Controllers
     [ApiController]
     public class Files : ControllerBase
     {
-        public AppDbContext test;
+        private AppDbContext _dbContext;
 
-        public Files(AppDbContext a)
+        public Files(AppDbContext dbContext)
         {
-            test = a;
+            _dbContext = dbContext;
         }
 
         // GET: api/<Files>
@@ -33,17 +34,40 @@ namespace DisKloud.Server.Controllers
 
         // POST api/<Files>
         [HttpPost]
-        public IActionResult Post(IFormFile file ,string name)
+        public async Task<IActionResult> Post(IFormFile file ,string path, Guid UserID)
         {
-            string dir = $"./{name}./";
-            if (! Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
-            FileStream newfile = System.IO.File.Create($"{dir}\\{file.FileName}");
+            FileData data;
+            /*IQueryable<FileData> Bddata = _dbContext.FileData.Where(f => f.Name == file.Name && f.path == path);
+            if (Bddata.Count() > 0)
+            {
+                data = Bddata.First();
+            }
+            else
+            {*/
+
+
+            Users? fileOwner = _dbContext.Users.Find(UserID) ;
+
+            if (fileOwner == null) throw new Exception("User Not Found");
+
+            data = new FileData(file,path, fileOwner);
+            _dbContext.FileData.Add(data);
+
+            FileStream newfile = System.IO.File.Create($".\\Files\\{data.Id}");
             file.CopyTo(newfile);
             newfile.Close();
-            return Ok();
+
+
+
+
+
+            await _dbContext.SaveChangesAsync();
+           
+            return Ok(data.Id);
 
         }
 
+        
         // PUT api/<Files>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
