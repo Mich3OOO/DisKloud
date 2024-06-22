@@ -14,7 +14,7 @@ services:
       - ${HTTP_PORT}:${HTTP_PORT}
     environment:
       - ConnectionStrings__Diskloud=Host=diskloud_db,${Bdd_port}; Database= DisKloud; Username = ${Bdd_User}; Password= ${Bdd_pwd};
-      - ASPNETCORE_HTTPS_PORTS=${HTTPS_PORT}
+      #- ASPNETCORE_HTTPS_PORTS=${HTTPS_PORT}
       - ASPNETCORE_HTTP_PORTS={HTTP_PORT} 
       - FilesPath=${FilesPath}
       - SercretKey=${SercretKey}
