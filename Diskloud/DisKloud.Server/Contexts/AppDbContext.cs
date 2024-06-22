@@ -9,6 +9,7 @@ namespace DisKloud.Server.Contexts
     {
         public DbSet<Users> Users { get; set; }
         public DbSet<FileData> FileData { get; set; }
+        public DbSet<ApiKey> ApiKey { get; set; }
         protected readonly IConfiguration Configuration;
 
         public AppDbContext(IConfiguration configuration)

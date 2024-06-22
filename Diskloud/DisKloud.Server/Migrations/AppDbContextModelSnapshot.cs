@@ -22,6 +22,24 @@ namespace DisKloud.Server.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DisKloud.Server.Model.ApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("expiredate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiKey");
+                });
+
             modelBuilder.Entity("DisKloud.Server.Model.FileData", b =>
                 {
                     b.Property<Guid>("Id")
@@ -61,6 +79,10 @@ namespace DisKloud.Server.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("text");
 

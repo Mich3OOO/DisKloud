@@ -1,11 +1,13 @@
 using DisKloud.Server.Contexts;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Mvc.Filters;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
+//add filter
+
 
 // Add services to the container.
 
@@ -17,6 +19,9 @@ builder.Services.AddDbContext<AppDbContext>();
 //use swagger
 //builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
 
 var app = builder.Build();
 

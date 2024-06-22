@@ -17,6 +17,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=${HTTPS_PORT}
       - ASPNETCORE_HTTP_PORTS={HTTP_PORT} 
       - FilesPath=${FilesPath}
+      - SercretKey=${SercretKey}
 
 
 
@@ -24,8 +25,9 @@ services:
      container_name: diskloud_db
      image: postgres
      environment:
-        - POSTGRES_PASSWORD=POSTGRES
-        - POSTGRES_USER=POSTGRES
+        - POSTGRES_PASSWORD=${Bdd_pwd}
+        - POSTGRES_USER=${Bdd_User}
         - POSTGRES_DB=DisKloud
+        
      ports:
-        - 5432:5432
+        - ${Bdd_port}:5432

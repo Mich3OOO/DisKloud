@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DisKloud.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240621150438_initialmigration")]
+    [Migration("20240622202035_initialmigration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -24,6 +24,24 @@ namespace DisKloud.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("DisKloud.Server.Model.ApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("expiredate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiKey");
+                });
 
             modelBuilder.Entity("DisKloud.Server.Model.FileData", b =>
                 {
@@ -64,6 +82,10 @@ namespace DisKloud.Server.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("text");
 
