@@ -30,10 +30,9 @@
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_HTTPS_PORTS": "",
         "ASPNETCORE_HTTP_PORTS": ""
       },
       "publishAllPorts": true,
