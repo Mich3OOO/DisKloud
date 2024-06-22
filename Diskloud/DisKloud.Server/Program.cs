@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 
 
-System.IO.Directory.CreateDirectory(".\\Files");
-
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 
@@ -37,4 +36,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+Console.WriteLine("runing...");
 app.Run();

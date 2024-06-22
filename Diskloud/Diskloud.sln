@@ -3,9 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisKloud.Client", "DisKloud.Client\DisKloud.Client.csproj", "{AB83AD03-722D-4D2F-9780-109E19484207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisKloud.Client", "DisKloud.Client\DisKloud.Client.csproj", "{AB83AD03-722D-4D2F-9780-109E19484207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisKloud.Server", "DisKloud.Server\DisKloud.Server.csproj", "{A59CAC32-B628-470A-BF13-5EA81CB3A445}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisKloud.Server", "DisKloud.Server\DisKloud.Server.csproj", "{A59CAC32-B628-470A-BF13-5EA81CB3A445}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FBB834D5-1BCF-4E06-AF54-F5B1D62F2F76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{59E91D38-BD8C-4B5D-B283-BA87206E0EF8}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,10 @@ Global
 		{A59CAC32-B628-470A-BF13-5EA81CB3A445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59CAC32-B628-470A-BF13-5EA81CB3A445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59CAC32-B628-470A-BF13-5EA81CB3A445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB834D5-1BCF-4E06-AF54-F5B1D62F2F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB834D5-1BCF-4E06-AF54-F5B1D62F2F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB834D5-1BCF-4E06-AF54-F5B1D62F2F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB834D5-1BCF-4E06-AF54-F5B1D62F2F76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

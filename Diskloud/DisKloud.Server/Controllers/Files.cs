@@ -13,12 +13,14 @@ namespace DisKloud.Server.Controllers
     public class Files : ControllerBase
     {
 
-        private const string FilesPath = ".\\Files\\";
+        private readonly string FilesPath;
         private AppDbContext _dbContext;
 
-        public Files(AppDbContext dbContext)
+        public Files(AppDbContext dbContext,IConfiguration conf)
         {
             _dbContext = dbContext;
+            FilesPath = conf["FilesPath"] + "/";
+            System.IO.Directory.CreateDirectory(conf["FilesPath"]);
         }
 
         // GET: api/<Files>
@@ -108,7 +110,7 @@ namespace DisKloud.Server.Controllers
         [HttpDelete]
         public IActionResult Delete(Guid FileId)
         {
-            FileData localdata = _dbContext.FileData.Find(FileId);
+            FileData? localdata = _dbContext.FileData.Find(FileId);
             if (localdata == null) return NotFound();
 
             System.IO.File.Delete(FilesPath + FileId.ToString());

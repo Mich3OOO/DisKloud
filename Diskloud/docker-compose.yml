@@ -1,0 +1,31 @@
+version: '3.4'
+name: diskloud
+services:
+  diskloud.server:
+    container_name: diskloud.server
+    image: ${DOCKER_REGISTRY-}diskloudserver
+    build:
+      context: .
+      dockerfile: DisKloud.Server/Dockerfile
+    depends_on:
+      - diskloud_db
+    ports:
+      - ${HTTPS_PORT}:${HTTPS_PORT}
+      - ${HTTP_PORT}:${HTTP_PORT}
+    environment:
+      - ConnectionStrings__Diskloud=Host=diskloud_db,${Bdd_port}; Database= DisKloud; Username = ${Bdd_User}; Password= ${Bdd_pwd};
+      - ASPNETCORE_HTTPS_PORTS=${HTTPS_PORT}
+      - ASPNETCORE_HTTP_PORTS={HTTP_PORT} 
+      - FilesPath=${FilesPath}
+
+
+
+  diskloud_db:
+     container_name: diskloud_db
+     image: postgres
+     environment:
+        - POSTGRES_PASSWORD=POSTGRES
+        - POSTGRES_USER=POSTGRES
+        - POSTGRES_DB=DisKloud
+     ports:
+        - 5432:5432

@@ -13,7 +13,7 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -23,7 +23,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -33,8 +33,8 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_HTTPS_PORTS": "8081",
-        "ASPNETCORE_HTTP_PORTS": "8080"
+        "ASPNETCORE_HTTPS_PORTS": "",
+        "ASPNETCORE_HTTP_PORTS": ""
       },
       "publishAllPorts": true,
       "useSSL": true
