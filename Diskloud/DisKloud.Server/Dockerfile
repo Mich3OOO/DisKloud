@@ -14,7 +14,18 @@ RUN dotnet restore "./DisKloud.Server/DisKloud.Server.csproj"
 COPY . .
 WORKDIR "/src/DisKloud.Server"
 RUN dotnet build "./DisKloud.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
-RUN dotnet dev-certs https
+
+# in the build stage we generate the cert
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+ARG PASSWORD_ENV_SEEDED
+
+#generate the cert, define the path to store it and password to use
+RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p ${PASSWORD_ENV_SEEDED}
+
+#then in final stage
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+COPY --chmod=0755 --from=build /https/* /https/
+
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
