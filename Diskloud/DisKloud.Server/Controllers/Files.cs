@@ -27,7 +27,7 @@ namespace DisKloud.Server.Controllers
         [HttpGet("data/{FileId}")]
         public IActionResult GetbyId(Guid FileId)
         {
-            if (!chekKey()) return StatusCode(403, "access denied") ;
+            if (!chekKey()) return StatusCode(403) ;
             return Ok(_dbContext.FileData.Find(FileId));
         }
 
@@ -35,7 +35,7 @@ namespace DisKloud.Server.Controllers
         [HttpGet("data/User/{UserId}")]
         public IActionResult GetbyOwner(Guid UserId)
         {
-            if (!chekKey()) return StatusCode(403, "access denied");
+            if (!chekKey()) return StatusCode(403);
             return Ok(_dbContext.FileData.Where(f=>f.Owner.Id == UserId));
         }
 
@@ -43,7 +43,7 @@ namespace DisKloud.Server.Controllers
         [HttpGet("{FileId}")]
         public IActionResult Get(Guid FileId)
         {
-            if (!chekKey()) return StatusCode(403, "access denied");
+            if (!chekKey()) return StatusCode(403);
             FileData? filedata = _dbContext.FileData.Find(FileId);
 
             if(filedata == null) return NotFound();
@@ -58,7 +58,7 @@ namespace DisKloud.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(IFormFile file ,string path, Guid UserID)
         {
-            if (!chekKey()) return StatusCode(403, "access denied");
+            if (!chekKey()) return StatusCode(403);
             FileData data;
 
 
@@ -87,7 +87,7 @@ namespace DisKloud.Server.Controllers
         [HttpPut]
         public async Task<IActionResult> Put(Guid FileId, IFormFile file, string path)
         {
-            if (!chekKey()) return StatusCode(403, "access denied");
+            if (!chekKey()) return StatusCode(403);
             FileData? localdata = _dbContext.FileData.Find(FileId);
             if (localdata == null) return NotFound();
 
@@ -114,7 +114,7 @@ namespace DisKloud.Server.Controllers
         [HttpDelete]
         public IActionResult Delete(Guid FileId)
         {
-            if (!chekKey()) return StatusCode(403, "access denied");
+            if (!chekKey()) return StatusCode(403);
             FileData? localdata = _dbContext.FileData.Find(FileId);
             if (localdata == null) return NotFound();
 

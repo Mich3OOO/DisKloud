@@ -26,7 +26,7 @@ namespace DisKloud.Server.Controllers
 
             Model.Users DbUser = _context.Users.Where(u => u.Name == username).First();
 
-            if (EncryptProvider.Sha256(password) != DbUser.password) return StatusCode(403, "access denied");
+            if (EncryptProvider.Sha256(password) != DbUser.password) return StatusCode(403);
 
             ApiKey newKey = new ApiKey(10);
 
@@ -42,7 +42,7 @@ namespace DisKloud.Server.Controllers
         [HttpPost]
         public IActionResult CreateNewUser(string username, string password ,string password2 , string sercretKey)
         {
-            if (sercretKey != SercretKey) return StatusCode(403, "access denied");
+            if (sercretKey != SercretKey) return StatusCode(403);
             if (password != password2 ) return BadRequest("password don't match");
             if (username == null || password == null || password2 == null) return BadRequest("user or password is null");
             if (_context.Users.Where(u => u.Name == username).Any()) return BadRequest("user already exist");
