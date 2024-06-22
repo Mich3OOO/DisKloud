@@ -14,6 +14,7 @@ RUN dotnet restore "./DisKloud.Server/DisKloud.Server.csproj"
 COPY . .
 WORKDIR "/src/DisKloud.Server"
 RUN dotnet build "./DisKloud.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet dev-certs https
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
