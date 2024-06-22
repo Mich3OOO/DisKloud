@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG PASSWORD_ENV_SEEDED
 
 #generate the cert, define the path to store it and password to use
-RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p ${PASSWORD_ENV_SEEDED}
+RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p $PASSWORD_ENV_SEEDED
 
 #then in final stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
