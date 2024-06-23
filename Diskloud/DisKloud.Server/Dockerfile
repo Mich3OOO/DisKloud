@@ -7,17 +7,16 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Debug
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["DisKloud.Server/DisKloud.Server.csproj", "DisKloud.Server/"]
 RUN dotnet restore "./DisKloud.Server/DisKloud.Server.csproj"
 COPY . .
 WORKDIR "/src/DisKloud.Server"
 RUN dotnet build "./DisKloud.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
-run dotnet dev-certs https -t
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Debug
+ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./DisKloud.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
