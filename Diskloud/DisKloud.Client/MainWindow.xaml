@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="Select_directory_button" Content="Shared Folder" HorizontalAlignment="Left" Height="31" Margin="0,393,0,0" VerticalAlignment="Top" Width="102" RenderTransformOrigin="0,1" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="14" Foreground="White">
             <Button.Background>
-                <ImageBrush ImageSource="/Sans titre 1_20240621175033.png" Stretch="UniformToFill" TileMode="None">
+                <ImageBrush ImageSource="assets/Sans titre 1_20240621175033.png" Stretch="UniformToFill" TileMode="None">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
                             <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="2" ScaleY="3"/>
@@ -23,12 +23,13 @@
         </Button>
         <TextBox x:Name="Directory_path" HorizontalAlignment="Left" Height="31" Margin="102,393,0,0" TextWrapping="Wrap" Text="Directory" VerticalAlignment="Top" Width="206"/>
         <ListBox x:Name="Directory_list_box" HorizontalAlignment="Left" Height="31" Margin="308,393,0,0" VerticalAlignment="Top" Width="140" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-        <Button Content="&#xD;&#xA;" HorizontalAlignment="Center" Height="154" Margin="0,63,0,0" VerticalAlignment="Top" Width="156" BorderThickness="0,0,0,0">
+        <Button x:Name="ConnectButton" Content="&#xD;&#xA;" HorizontalAlignment="Center" Height="154" Margin="0,63,0,0" VerticalAlignment="Top" Width="156" BorderThickness="0,0,0,0" Click="ConnectButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/pngwing.com.png" Stretch="UniformToFill" TileMode="None"/>
+                <ImageBrush ImageSource="assets/pngwing.com.png" Stretch="UniformToFill" TileMode="None"/>
             </Button.Background>
         </Button>
         <TextBox x:Name="Server_address" HorizontalAlignment="Left" Height="25" Margin="241,235,0,0" TextWrapping="Wrap" Text="Server Address" VerticalAlignment="Top" Width="159"/>
         <ListBox x:Name="Server_address_list_box" HorizontalAlignment="Left" Height="25" Margin="400,235,0,0" VerticalAlignment="Top" Width="159" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Label x:Name="InfoLabel" Content="" HorizontalAlignment="Left" Margin="241,288,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

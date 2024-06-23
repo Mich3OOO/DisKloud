@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using DisKloud.Client.Core;
+using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -24,10 +26,19 @@ namespace DisKloud.Client
         [DllImport("Kernel32", SetLastError = true)]
         public static extern void FreeConsole();
 
+
+        private Thread worker;
+
+        private Worker bkworker;
+        private bool connected = false;
+        
         public MainWindow()
         {
             InitializeComponent();
             AllocConsole();
+             
+
+
         }
 
         public DateTime[] get_date()
@@ -40,5 +51,42 @@ namespace DisKloud.Client
             return dates;
 
         }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (connected)
+            {
+                connected = false;
+                bkworker.r();
+            }
+            else
+            {
+                bkworker = new Worker(Server_address.Text);
+                worker = new Thread(bkworker.work);
+                worker.SetApartmentState(ApartmentState.STA);
+                worker.Start();
+                connected = true;
+
+            }
+            
+
+
+        }
+
+
+        private void printError(string message)
+        {
+            InfoLabel.Content = message;
+            InfoLabel.Foreground = Brushes.Red;
+        
+        }
+
+        private void printInfo(string message)
+        {
+            InfoLabel.Content = message;
+            InfoLabel.Foreground = Brushes.Blue;
+        }
+
+        private void clearPrint() => printInfo("");
     }
 }
