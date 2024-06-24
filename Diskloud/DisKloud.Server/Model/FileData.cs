@@ -5,8 +5,8 @@
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public string VersionDate { get; set; }
-        public string path {  get; set; }
+        public DateTime VersionDate { get; set; }
+        public string Path {  get; set; }
 
         public Users Owner { get; set; }
 
@@ -20,11 +20,11 @@
         {
             Id = Guid.NewGuid();
             Name = file.FileName;
-            VersionDate = file.Headers.LastModified;
+            VersionDate = DateTime.Parse(file.Headers.LastModified);
 
-            if (VersionDate == null) VersionDate = DateTime.Now.ToString();
+            if (VersionDate == null) VersionDate = DateTime.UtcNow;
 
-            path = filePath;
+            Path = filePath;
             Owner =user;
             ContentType = file.ContentType;
         }
@@ -33,11 +33,11 @@
         {
             
             Name = file.FileName;
-            VersionDate = file.Headers.LastModified;
+            VersionDate = DateTime.Parse(file.Headers.LastModified);
 
-            if (VersionDate == null) VersionDate = DateTime.Now.ToString();
+            if (VersionDate == null) VersionDate = DateTime.UtcNow;
 
-            path = filePath;
+            Path = filePath;
             ContentType = file.ContentType;
 
 
