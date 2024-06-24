@@ -33,7 +33,7 @@ namespace DisKloud.Server.Controllers
             _context.ApiKey.Add(newKey);
             _context.SaveChanges();
 
-            return Ok(newKey.Key);
+            return Ok(new { id = DbUser.Id, key = newKey.Key });
 
         }
 

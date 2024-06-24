@@ -48,18 +48,19 @@ namespace DisKloud.Client
             if (connected)
             {
                 connected = false;
-                bkworker.r();
+                
             }
             else
             {
                 bkworker = new Worker(Server_address.Text);
-                worker = new Thread(bkworker.work);
+                worker = new Thread(bkworker.Work);
                 worker.SetApartmentState(ApartmentState.STA);
                 worker.Start();
                 connected = true;
 
             }
-            
+            bkworker.running = connected;
+
 
 
         }

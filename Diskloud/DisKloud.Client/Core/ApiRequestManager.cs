@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
+using System.Net.Http.Json;
 
 namespace DisKloud.Client.Core
 {
@@ -12,6 +14,7 @@ namespace DisKloud.Client.Core
     {
         private string Apiurl;
         private string apikey;
+        private string UserId;
         public ApiRequestManager(string server) 
         {
             Apiurl = $"http://{server}/api/";
@@ -19,11 +22,12 @@ namespace DisKloud.Client.Core
         
         public async Task<bool> GetApiKey (string user, string password)
         {
-            HttpResponseMessage rep = await SendRequest(HttpMethod.Get, $"{Apiurl}Users/?username={user}&password={password}");
+            Dictionary<string,string> rep = await (await SendRequest(HttpMethod.Get, $"{Apiurl}Users/?username={user}&password={password}")).Content.ReadFromJsonAsync< Dictionary<string, string>>();
 
-            if (rep.StatusCode == System.Net.HttpStatusCode.OK)
+            if (rep is not null)
             {
-                apikey = await rep.Content.ReadAsStringAsync();
+                apikey = rep["key"];
+                UserId = rep["id"];
                 Console.WriteLine($"Received {apikey}");
                 return true;
             }
