@@ -16,7 +16,7 @@ namespace DisKloud.Server.Controllers
         private readonly string FilesPath;
         private AppDbContext _dbContext;
 
-        public Files(AppDbContext dbContext,IConfiguration conf)
+        public Files(AppDbContext dbContext, IConfiguration conf)
         {
             _dbContext = dbContext;
             FilesPath = conf["FilesPath"] + "/";
@@ -27,7 +27,7 @@ namespace DisKloud.Server.Controllers
         [HttpGet("data/{FileId}")]
         public IActionResult GetbyId(Guid FileId)
         {
-            if (!chekKey()) return StatusCode(403) ;
+            if (!chekKey()) return StatusCode(403);
             return Ok(_dbContext.FileData.Find(FileId));
         }
 
@@ -36,7 +36,7 @@ namespace DisKloud.Server.Controllers
         public IActionResult GetbyOwner(Guid UserId)
         {
             if (!chekKey()) return StatusCode(403);
-            return Ok(_dbContext.FileData.Where(f=>f.Owner.Id == UserId));
+            return Ok(_dbContext.FileData.Where(f => f.Owner.Id == UserId));
         }
 
 
@@ -46,7 +46,7 @@ namespace DisKloud.Server.Controllers
             if (!chekKey()) return StatusCode(403);
             FileData? filedata = _dbContext.FileData.Find(FileId);
 
-            if(filedata == null) return NotFound();
+            if (filedata == null) return NotFound();
 
             FileStream file = System.IO.File.Open(FilesPath + FileId.ToString(), FileMode.Open);
 
@@ -55,19 +55,19 @@ namespace DisKloud.Server.Controllers
         }
 
         // POST api/<Files>
-        [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file ,string path, Guid UserID)
+        [HttpPost("{UserID},{path}")]
+        public async Task<IActionResult> Post(Guid UserID, string path, IFormFile file)
         {
             if (!chekKey()) return StatusCode(403);
             FileData data;
 
 
 
-            Model.Users? fileOwner = _dbContext.Users.Find(UserID) ;
+            Model.Users? fileOwner = _dbContext.Users.Find(UserID);
 
             if (fileOwner == null) throw new Exception("User Not Found");
 
-            data = new FileData(file,path, fileOwner);
+            data = new FileData(file, path, fileOwner);
             _dbContext.FileData.Add(data);
 
             FileStream newfile = System.IO.File.Create(FilesPath + data.Id.ToString());
@@ -77,15 +77,15 @@ namespace DisKloud.Server.Controllers
 
 
             await _dbContext.SaveChangesAsync();
-           
+
             return Ok(data.Id);
 
         }
 
-        
+
         // PUT api/<Files>/5
-        [HttpPut]
-        public async Task<IActionResult> Put(Guid FileId, IFormFile file, string path)
+        [HttpPut("{FileId},{path}")]
+        public async Task<IActionResult> Put(Guid FileId, string path, IFormFile file)
         {
             if (!chekKey()) return StatusCode(403);
             FileData? localdata = _dbContext.FileData.Find(FileId);
@@ -111,7 +111,7 @@ namespace DisKloud.Server.Controllers
         }
 
         // DELETE api/<Files>/5
-        [HttpDelete]
+        [HttpDelete("{FileId}")]
         public IActionResult Delete(Guid FileId)
         {
             if (!chekKey()) return StatusCode(403);
