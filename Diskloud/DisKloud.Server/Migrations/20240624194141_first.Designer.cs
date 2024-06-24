@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DisKloud.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240622202035_initialmigration")]
-    partial class initialmigration
+    [Migration("20240624194141_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,13 +60,12 @@ namespace DisKloud.Server.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("VersionDate")
+                    b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("path")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("VersionDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
